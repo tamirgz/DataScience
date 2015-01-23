@@ -1,13 +1,15 @@
 library(dplyr)
 library(plyr)
 
+## get the working directory
+wd <- getwd()
 ## read the input data files
-xTestSet = read.table("./UCI HAR Dataset/test/X_test.txt")
-yTest = read.table("./UCI HAR Dataset/test/y_test.txt")
-xTrainSet = read.table("./UCI HAR Dataset/train/X_train.txt")
-yTrain = read.table("./UCI HAR Dataset/train/y_train.txt")
-subjectTest = read.table("./UCI HAR Dataset/test/subject_test.txt")
-subjectTrain = read.table("./UCI HAR Dataset/train/subject_train.txt")
+xTestSet = read.table(paste(wd,"/UCI HAR Dataset/test/X_test.txt",sep=""))
+yTest = read.table(paste(wd,"/UCI HAR Dataset/test/y_test.txt",sep=""))
+xTrainSet = read.table(paste(wd,"/UCI HAR Dataset/train/X_train.txt",sep=""))
+yTrain = read.table(paste(wd,"/UCI HAR Dataset/train/y_train.txt",sep=""))
+subjectTest = read.table(paste(wd,"/UCI HAR Dataset/test/subject_test.txt",sep=""))
+subjectTrain = read.table(paste(wd,"/UCI HAR Dataset/train/subject_train.txt",sep=""))
 
 ## add the "activity type" column for each set
 xTestSet <- mutate(xTestSet,Y = yTest$V1)
@@ -29,7 +31,7 @@ q1Data <- arrange(mergedData,Subject)
 rm("mergedData")
 
 ## Read the "features" text file
-temp <- scan("./UCI HAR Dataset/features.txt", what=list(NULL, name=character()))
+temp <- scan(paste(wd,"/UCI HAR Dataset/features.txt",sep=""), what=list(NULL, name=character()))
 features = temp$name
 ## select the indexes of the variables that contain the word "mean()"
 means <- grep("mean()",features)
@@ -42,8 +44,7 @@ selected <- sort(selected)
 ## Select the "Subject","Activity" and columns including "mean()" and std()"
 #  This constructs the data set as requested in question 2 of the project
 q2Data <- q1Data[,c(1,2,selected+2)]
-## write the q2Data to file: q2Data.txt
-write.table(q2Data,file = "./q2Data.txt",row.names = FALSE)
+
 ## set meaningful names for the first two columns
 colnames(q2Data)[1] <- "Subject"
 colnames(q2Data)[2] <- "Activity"
@@ -54,4 +55,4 @@ rm("features"); rm("selected"); rm("means"); rm("stds");
 ## Calculate average for each variable, for each subject and for each activity
 q5Data <- summarise_each(group_by(q2Data,Subject,Activity),funs(mean),3:ncol(q2Data))
 ## write the tidy table to file
-write.table(q5Data,file = "./tidyData.txt",row.names = FALSE)
+write.table(q5Data,file = paste(wd,"/UCI HAR Dataset/tidyData.txt",sep=""),row.names = FALSE)
