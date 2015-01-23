@@ -1,5 +1,5 @@
-Getting and Cleaning Data - Project Codebook
-============================================
+## Getting and Cleaning Data - Project Codebook
+===============================================
 
 # Subject
 	subject ID
