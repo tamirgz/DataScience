@@ -43,7 +43,7 @@ selected <- sort(selected)
 #  This constructs the data set as requested in question 2 of the project
 q2Data <- q1Data[,c(1,2,selected+2)]
 ## write the q2Data to file: q2Data.txt
-write.table(q5Data,file = "./tidyData.txt")
+write.table(q2Data,file = "./q2Data.txt",row.names = FALSE)
 ## set meaningful names for the first two columns
 colnames(q2Data)[1] <- "Subject"
 colnames(q2Data)[2] <- "Activity"
@@ -54,4 +54,4 @@ rm("features"); rm("selected"); rm("means"); rm("stds");
 ## Calculate average for each variable, for each subject and for each activity
 q5Data <- summarise_each(group_by(q2Data,Subject,Activity),funs(mean),3:ncol(q2Data))
 ## write the tidy table to file
-write.table(q5Data,file = "./tidyData.txt")
+write.table(q5Data,file = "./tidyData.txt",row.names = FALSE)
