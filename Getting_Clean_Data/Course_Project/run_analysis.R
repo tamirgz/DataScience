@@ -40,14 +40,17 @@ selected <- c(means,stds)
 selected <- sort(selected)
 ## Select the "Subject","Activity" and columns including "mean()" and std()"
 q2Data <- q1Data[,c(1,2,selected+2)]
-names(q2Data) <- c("Subject","Activity",features[selected])
+#names(q2Data) <- c("Subject","Activity",features[selected])
+colnames(q2Data)[1] <- "Subject"
+colnames(q2Data)[2] <- "Activity"
 ## read the activities text file
-temp <- scan("./UCI HAR Dataset/activity_labels.txt", what=list(NULL, name=character()))
-activities <- temp$name
+#temp <- scan("./UCI HAR Dataset/activity_labels.txt", what=list(NULL, name=character()))
+#activities <- temp$name
 ## substitue the activity index with its name
-q2Data$Activity <- activities[q2Data$Activity]
+#q2Data$Activity <- activities[q2Data$Activity]
 ## remove the unnecessary variables for simplicity
-rm("features"); rm("selected"); rm("temp"); rm("means"); rm("stds"); rm("activities")
+#rm("features"); rm("selected"); rm("temp"); rm("means"); rm("stds"); rm("activities")
+rm("features"); rm("selected"); rm("means"); rm("stds");
 
 ## Calculate average for each variable, for each activity of each subject
 q5Data <- summarise_each(group_by(q2Data,Subject,Activity),funs(mean),3:ncol(q2Data))
