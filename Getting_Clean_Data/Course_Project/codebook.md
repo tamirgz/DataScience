@@ -1,11 +1,11 @@
 Getting and Cleaning Data - Project Codebook
 ============================================
 
-Subject
+# Subject
 	subject ID
 		1..30 unique idendifier of the subject
 
-Activity
+# Activity
 	Monitored activity lebels
 	    1 - WALKING
 		2 - WALKING_UPSTAIRS
@@ -14,7 +14,7 @@ Activity
 		5 - STANDING
 		6 - LAYING
 
-Data columns mapped to the related features as listed in "features.txt"
+# Data columns mapped to the related features as listed in "features.txt"
 
 	V1		-	tBodyAcc-mean()-X
 	V2		-	tBodyAcc-mean()-Y
